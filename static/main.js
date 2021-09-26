@@ -9,6 +9,8 @@ const csrf = document.getElementsByName('csrfmiddlewaretoken')
 
 input.addEventListener('change', ()=> {
     console.log('changed')
+    alertBox.innerHTML = ""
+    confirmBtn.classList.remove('not-visible')
 
     const img_data = input.files[0]
     const url = URL.createObjectURL(img_data)
@@ -16,10 +18,6 @@ input.addEventListener('change', ()=> {
     imageBox.innerHTML = `<img src="${url}" id="image">`
 
     const image = document.getElementById('image')
-    var $image = $('#image');
-
-    console.log('js', image)
-    console.log('jQuery', $image)
 
     const cropper = new Cropper(image, {
         aspectRatio: 16 / 9,
@@ -33,5 +31,35 @@ input.addEventListener('change', ()=> {
           console.log(event.detail.scaleY);
         },
       });
+
+      confirmBtn.addEventListener('click', ()=> {
+        cropper.getCroppedCanvas().toBlob((blob)=> {
+          const fd = new FormData()
+          fd.append('csrfmiddlewaretoken', csrf[0].value)
+          fd.append('file', blob, 'my-image.png')
+
+          $.ajax({
+            type: 'POST',
+            url: imageForm.action,
+            enctype: 'multipart/form-data',
+            data: fd,
+            success: function(response){
+              console.log(response)
+              alertBox.innerHTML = `<div class="alert alert-success" role="alert">
+                                      Image cropped and saved, successfully!
+                                    </div>`
+            },
+            error: function(error){
+              console.log(error)
+              alertBox.innerHTML = `<div class="alert alert-danger" role="alert">
+                                      Oops! Something went wrong!
+                                    </div>`
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+          })
+        })
+      })
 })
 
