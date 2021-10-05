@@ -32,6 +32,20 @@ input.addEventListener('change', ()=> {
         },
       });
 
+      cropper.getCroppedCanvas();
+
+      cropper.getCroppedCanvas({
+        width: 160,
+        height: 90,
+        minWidth: 256,
+        minHeight: 256,
+        maxWidth: 4096,
+        maxHeight: 4096,
+        fillColor: '#fff',
+        imageSmoothingEnabled: false,
+        imageSmoothingQuality: 'high',
+      });
+
       confirmBtn.addEventListener('click', ()=> {
         cropper.getCroppedCanvas().toBlob((blob)=> {
           const fd = new FormData()
