@@ -3,7 +3,8 @@ img {
     display: block;
   
     /* This rule is very important, please don't ignore this */
-    max-width: 100%;
+    max-width: 50%;
+    max-height: 50%;
   }
 
 .not-visible {
