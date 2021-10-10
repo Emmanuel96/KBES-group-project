@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Image
 from .forms import ImageForm
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 import os
 import glob
 import cv2
@@ -44,4 +44,5 @@ def toText(request):
         filter_predicted_result = "".join(predicted_result.split()).replace(":", "").replace("-", "")
         predicted_license_plates.append(filter_predicted_result)
         
-        return HttpResponse(predicted_license_plates)
+        context = { 'filter_predicted_result': filter_predicted_result }
+        return render(request, 'images/text.html', context)
