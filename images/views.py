@@ -20,6 +20,7 @@ def index(request):
     return render(request, 'images/index.html', context)
 
 def toText(request):
+    
     # get media directory using os
     path_for_license_plates = os.getcwd() + "/media/images/*"
     list_license_plates = []
