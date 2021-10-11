@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Image
 from .forms import ImageForm
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 import os
 import glob
 import cv2
@@ -20,6 +20,7 @@ def index(request):
     return render(request, 'images/index.html', context)
 
 def toText(request):
+    
     # get media directory using os
     path_for_license_plates = os.getcwd() + "/media/images/*"
     list_license_plates = []
@@ -37,10 +38,12 @@ def toText(request):
         img = cv2.imread(path_to_license_plate)
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         
-        pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'        
+        pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'    
+        # pytesseract.pytesseract.tesseract_cmd = r'/app/.apt/usr/bin/tesseract'    
         predicted_result = pytesseract.image_to_string(img_rgb, lang='eng',config='--oem 3 --psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
         
         filter_predicted_result = "".join(predicted_result.split()).replace(":", "").replace("-", "")
         predicted_license_plates.append(filter_predicted_result)
         
-        return HttpResponse(predicted_license_plates)
+        context = { 'filter_predicted_result' : filter_predicted_result }
+        return render(request, 'images/text.html', context)
