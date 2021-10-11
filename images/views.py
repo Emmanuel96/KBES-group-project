@@ -44,5 +44,5 @@ def toText(request):
         filter_predicted_result = "".join(predicted_result.split()).replace(":", "").replace("-", "")
         predicted_license_plates.append(filter_predicted_result)
         
-        context = { 'filter_predicted_result': filter_predicted_result }
+        context = { 'filter_predicted_result' : filter_predicted_result }
         return render(request, 'images/text.html', context)
