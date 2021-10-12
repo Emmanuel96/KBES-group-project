@@ -50,6 +50,7 @@ input.addEventListener('change', ()=> {
       // });
 
       confirmBtn.addEventListener('click', ()=> {
+
         cropper.getCroppedCanvas().toBlob((blob)=> {
           const fd = new FormData()
           fd.append('csrfmiddlewaretoken', csrf[0].value)
@@ -60,13 +61,16 @@ input.addEventListener('change', ()=> {
             url: imageForm.action,
             enctype: 'multipart/form-data',
             data: fd,
+
             success: function(response){
               console.log(response)
+              
+              text.innerHTML = ""
               alertBox.innerHTML = `<div class="alert alert-success" role="alert">
-                                      Image cropped and saved, successfully!
+                                      ${response.context.filter_predicted_result} was extracted from the image!
                                     </div>`
               // window.location.href = "/text"
-              alert(response.context.filter_predicted_result)
+              // alert(response.context.filter_predicted_result)
             },
             error: function(error){
               console.log(error)
