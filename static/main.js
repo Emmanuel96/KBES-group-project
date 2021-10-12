@@ -62,12 +62,16 @@ input.addEventListener('change', ()=> {
               alertBox.innerHTML = `<div class="alert alert-success" role="alert">
                                       Image cropped and saved, successfully!
                                     </div>`
+              // window.location.href = "/text"
+              alert(response.context.filter_predicted_result)
             },
             error: function(error){
               console.log(error)
               alertBox.innerHTML = `<div class="alert alert-danger" role="alert">
                                       Oops! Something went wrong!
                                     </div>`
+
+              console.log('i got to the error')
             },
             cache: false,
             contentType: false,
