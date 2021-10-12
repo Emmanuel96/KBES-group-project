@@ -31,8 +31,8 @@ def index(request):
             img = cv2.imread(path_to_license_plate)
             # img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             
-            pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'    
-            # pytesseract.pytesseract.tesseract_cmd = r'/app/.apt/usr/bin/tesseract'    
+            # pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'    
+            pytesseract.pytesseract.tesseract_cmd = r'/app/.apt/usr/bin/tesseract'    
             predicted_result = pytesseract.image_to_string(img, lang='eng',config='--oem 3 --psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
             
             filter_predicted_result = "".join(predicted_result.split()).replace(":", "").replace("-", "")
