@@ -23,8 +23,7 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
     # path('images/', include('images.urls'))
-    path('', views.index, name='index'),
-    path('text/', views.toText, name='text')
+    path('', views.index, name='index')
     
 ]
 
