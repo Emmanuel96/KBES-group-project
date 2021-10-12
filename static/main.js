@@ -4,12 +4,15 @@ const imageForm = document.getElementById('image-form')
 
 const confirmBtn = document.getElementById('confirm-btn')
 const input = document.getElementById('id_file')
-
+const text = document.getElementById('text')
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
 
 input.addEventListener('change', ()=> {
     console.log('changed')
+
+    text.innerHTML = `<p>Select the text portion of the image</p>`
     alertBox.innerHTML = ""
+    
     confirmBtn.classList.remove('not-visible')
 
     const img_data = input.files[0]
