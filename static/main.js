@@ -62,9 +62,7 @@ input.addEventListener('change', ()=> {
             enctype: 'multipart/form-data',
             data: fd,
 
-            success: function(response){
-              console.log(response)
-              
+            success: function(response){              
               text.innerHTML = ""
               alertBox.innerHTML = `<div class="alert alert-success" role="alert">
                                       ${response.context.filter_predicted_result} was extracted from the image.
