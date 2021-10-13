@@ -65,7 +65,7 @@ input.addEventListener('change', ()=> {
             success: function(response){              
               text.innerHTML = ""
               alertBox.innerHTML = `<div class="alert alert-success" role="alert">
-                                      ${response.context.filter_predicted_result} was extracted from the image.
+                                      ${response.context.filter_predicted_result}
                                     </div>`
               // window.location.href = "/text"
               // alert(response.context.filter_predicted_result)
